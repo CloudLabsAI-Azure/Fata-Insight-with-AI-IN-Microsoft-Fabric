@@ -1,13 +1,4 @@
-## Develop, evaluate, and score a forecasting model for superstore sales
-
-### Prerequisites
-Follow along in a notebook:
-
-- Step 1: Load the data
-- Step 2: Perform exploratory data analysis
-- Step 3: Train and track the model
-- Step 4: Score the model and save predictions
-- Step 5: Visualize in Power BI
+# Develop, evaluate, and score a forecasting model for superstore sales
 
 This tutorial presents an end-to-end example of a Synapse Data Science workflow in Microsoft Fabric. The scenario builds a forecasting model that uses historical sales data to predict product category sales at a superstore.
 
@@ -55,7 +46,7 @@ The AIsample - Superstore Forecast.ipynb notebook accompanies this tutorial.
 
 - Be sure to attach a lakehouse to the notebook before you start running code.
 
-## Step 1: Load the data
+### Step 1: Load the data
 The dataset contains 9,995 instances of sales of various products. It also includes 21 attributes. This table is from the Superstore.xlsx file used in this notebook:
 
 | Row ID | Order ID       | Order Date | Ship Date  | Ship Mode       | Customer ID | Customer Name      | Segment   | Country       | City           | State         | Postal Code | Region | Product ID        | Category        | Sub-Category | Product Name                                         | Sales     | Quantity | Discount | Profit   |
@@ -81,7 +72,7 @@ The dataset contains 9,995 instances of sales of various products. It also inclu
     EXPERIMENT_NAME = "aisample-superstore-forecast"  # MLflow experiment name
 
     ```
-### Download the dataset and upload to the lakehouse
+## Download the dataset and upload to the lakehouse
 This code downloads a publicly available version of the dataset, and then stores it in a Fabric lakehouse:
 
  >Important: Be sure to add a lakehouse to the notebook before you run it. Otherwise, you'll get an error.
@@ -107,8 +98,6 @@ if not IS_CUSTOM_DATA:
     print("Downloaded demo data files into lakehouse.")
 
 ```
-
-
 ## Set up MLflow experiment tracking
 Microsoft Fabric automatically captures the values of input parameters and output metrics of a machine learning model as you train it. This extends MLflow autologging capabilities. The information is then logged to the workspace, where you can access and visualize it with the MLflow APIs or the corresponding experiment in the workspace. To learn more about autologging, see Autologging in Microsoft Fabric.
 
@@ -128,7 +117,7 @@ Read raw data from the Files section of the lakehouse. Add more columns for diff
 import pandas as pd
 df = pd.read_excel("/lakehouse/default/Files/salesforecast/raw/Superstore.xlsx")
 ```
-## Step 2: Perform exploratory data analysis
+### Step 2: Perform exploratory data analysis
 
 #### Import libraries
 Before any analysis, import the required libraries:
@@ -165,7 +154,7 @@ This notebook primarily focuses on forecasting the Furniture category sales. Thi
 furniture = df.loc[df['Category'] == 'Furniture']
 print(furniture['Order Date'].min(), furniture['Order Date'].max())
 ```
-### Preprocess the data
+## Preprocess the data
 Real-world business scenarios often need to predict sales in three distinct categories:
 
 - A specific product category
@@ -390,7 +379,7 @@ mlflow.end_run()
 # Load the saved model
 loaded_model = mlflow.statsmodels.load_model(model_uri)
 ```
-## Step 4: Score the model and save predictions
+### Step 4: Score the model and save predictions
 Integrate the actual values with the forecasted values, to create a Power BI report. Store these results in a table within the lakehouse.
 
 ```
@@ -422,7 +411,7 @@ table_name = "Demand_Forecast_New_1"
 spark.createDataFrame(final_data_2).write.mode("overwrite").format("delta").save(f"Tables/{table_name}")
 print(f"Spark DataFrame saved to delta table: {table_name}")
 ```
-## Step 5: Visualize in Power BI
+### Step 5: Visualize in Power BI
 The Power BI report shows a mean absolute percentage error (MAPE) of 16.58. The MAPE metric defines the accuracy of a forecasting method. It represents the accuracy of the forecasted quantities, in comparison with the actual quantities.
 
 MAPE is a straightforward metric. A 10% MAPE represents that the average deviation between the forecasted values and actual values is 10%, regardless of whether the deviation was positive or negative. Standards of desirable MAPE values vary across industries.
