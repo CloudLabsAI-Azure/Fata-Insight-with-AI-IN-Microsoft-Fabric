@@ -11,6 +11,10 @@
       {
         "RawFilePath": "https://raw.githubusercontent.com/CloudLabsAI-Azure/data-Insight-with-AI-IN-Microsoft-Fabric/refs/heads/main/Day-2/Performing%20Sentiment%20analysis%20and%20Text%20translation%20with%20AI%20Skills%20in%20Microsoft%20Fabric.md",
         "Order": 2
+      },
+      {
+        "RawFilePath": "https://raw.githubusercontent.com/CloudLabsAI-Azure/data-Insight-with-AI-IN-Microsoft-Fabric/refs/heads/main/Day-2/Identifying%20and%20extracting%20text%20with%20Document%20Intelligence%20microsoft%20Fabric.md",
+        "Order": 3
       }
     ]
   }
