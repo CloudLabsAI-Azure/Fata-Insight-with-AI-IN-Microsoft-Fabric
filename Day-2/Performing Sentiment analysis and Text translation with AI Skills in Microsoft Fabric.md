@@ -158,45 +158,6 @@ display(
 )
 ```
 
-## Extract information from a document into structured data
-Azure AI Document Intelligence is a part of Azure AI services that lets you build automated data processing software using machine learning technology. With Azure AI Document Intelligence, you can identify and extract text, key/value pairs, selection marks, tables, and structure from your documents. The service outputs structured data that includes the relationships in the original file, bounding boxes, confidence and more.
-
-The following code sample analyzes a business card image and extracts its information into structured data.
-
-```
-from pyspark.sql.functions import col, explode
-
-# Create a dataframe containing the source files
-imageDf = spark.createDataFrame(
-    [
-        (
-            "https://mmlspark.blob.core.windows.net/datasets/FormRecognizer/business_card.jpg",
-        )
-    ],
-    [
-        "source",
-    ],
-)
-
-# Run the Form Recognizer service
-analyzeBusinessCards = (
-    AnalyzeBusinessCards()
-    .setSubscriptionKey(service_key)
-    .setLocation(service_loc)
-    .setImageUrlCol("source")
-    .setOutputCol("businessCards")
-)
-
-# Show the results of recognition.
-display(
-    analyzeBusinessCards.transform(imageDf)
-    .withColumn(
-        "documents", explode(col("businessCards.analyzeResult.documentResults.fields"))
-    )
-    .select("source", "documents")
-)
-```
-
 ## Analyze and tag images
 Computer Vision analyzes images to identify structure such as faces, objects, and natural-language descriptions.
 
