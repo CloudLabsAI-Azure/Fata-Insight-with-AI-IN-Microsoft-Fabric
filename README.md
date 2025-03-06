@@ -1,0 +1,1 @@
+# Fata-Insight-with-AI-IN-Microsoft-Fabric
