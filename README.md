@@ -1,1 +1,1 @@
-# Fata-Insight-with-AI-IN-Microsoft-Fabric
+# Data-Insight-with-AI-IN-Microsoft-Fabric
